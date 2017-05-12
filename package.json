@@ -1,0 +1,32 @@
+{
+  "name": "trudge",
+  "version": "0.0.1",
+  "description": "Undefined open world game",
+  "main": "index.html",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "browser-sync start --server --open local --files '**/*.html, dist/**' & babel src --out-dir dist --presets=es2015 --watch",
+    "start-without-sync": "opn index.html && babel src --out-dir dist --presets=es2015 --watch"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/entozoon/trudge.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/entozoon/trudge/issues"
+  },
+  "homepage": "https://github.com/entozoon/trudge#readme",
+  "dependencies": {
+    "babel-cli": "^6.24.1",
+    "babel-eslint": "^7.2.3",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-stage-2": "^6.24.1",
+    "babel-watch": "^2.0.6",
+    "browser-sync": "^2.18.8",
+    "eslint": "^3.19.0",
+    "eslint-plugin-react": "^7.0.0",
+    "opn-cli": "^3.1.0"
+  }
+}
