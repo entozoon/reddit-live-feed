@@ -5,8 +5,8 @@
   "main": "index.html",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "browser-sync start --server --open local --files '**/*.html, dist/**' & babel src --out-dir dist --presets=react,es2015 --watch",
-    "start-without-sync": "opn index.html && babel src --out-dir dist --presets=es2015 --watch"
+    "start": "browser-sync start --server --open local --files '**/*.html, dist/**' & babel src --out-file dist/app.js --presets=react,es2015 --watch",
+    "start-without-sync": "opn index.html & babel src --out-file dist/app.js"
   },
   "repository": {
     "type": "git",
