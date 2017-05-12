@@ -14,31 +14,27 @@ async function getPostsFromReddit() {
 
 getPostsFromReddit()
   .then(posts => {
-    // Trim out everything except the juicy data
-    posts = posts.map(post => {
-      return post.data;
-    });
-
     console.log(posts);
 
-    posts.map(post => {
+    posts.forEach(post => {
+      const data = post.data;
       // Create/update tasty react objects here later.
 
       // Template literals! With if statements, srsly!
       document.body.innerHTML += `
-        ${post.title} <br>
-        ${post.author} <br>
-        /r/${post.keto} <br>
-        ${post.url} <br>
+        ${data.title} <br>
+        ${data.author} <br>
+        /r/${data.keto} <br>
+        ${data.url} <br>
 
-        ${post.selftext ?
-          `${post.selftext}` : ''
+        ${data.selftext ?
+          `${data.selftext}` : ''
         }
 
-        score: ${post.score} <br>
+        score: ${data.score} <br>
 
-        ${post.thumbnail.substr(0, 4) == 'http'  ?
-          `<img src="${post.thumbnail}" /> <br>`
+        ${data.thumbnail.substr(0, 4) == 'http'  ?
+          `<img src="${data.thumbnail}" /> <br>`
           :
           'ddwadwafwafwafwaf'
         }

@@ -15,17 +15,13 @@ async function getPostsFromReddit() {
 }
 
 getPostsFromReddit().then(function (posts) {
-  // Trim out everything except the juicy data
-  posts = posts.map(function (post) {
-    return post.data;
-  });
-
   console.log(posts);
 
-  posts.map(function (post) {
+  posts.forEach(function (post) {
+    var data = post.data;
     // Create/update tasty react objects here later.
 
     // Template literals! With if statements, srsly!
-    document.body.innerHTML += '\n        ' + post.title + ' <br>\n        ' + post.author + ' <br>\n        /r/' + post.keto + ' <br>\n        ' + post.url + ' <br>\n\n        ' + (post.selftext ? '' + post.selftext : '') + '\n\n        score: ' + post.score + ' <br>\n\n        ' + (post.thumbnail.substr(0, 4) == 'http' ? '<img src="' + post.thumbnail + '" /> <br>' : 'ddwadwafwafwafwaf') + '\n\n        <hr>\n      ';
+    document.body.innerHTML += '\n        ' + data.title + ' <br>\n        ' + data.author + ' <br>\n        /r/' + data.keto + ' <br>\n        ' + data.url + ' <br>\n\n        ' + (data.selftext ? '' + data.selftext : '') + '\n\n        score: ' + data.score + ' <br>\n\n        ' + (data.thumbnail.substr(0, 4) == 'http' ? '<img src="' + data.thumbnail + '" /> <br>' : 'ddwadwafwafwafwaf') + '\n\n        <hr>\n      ';
   });
 });
