@@ -1,43 +1,52 @@
 class Posts extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {
+      'posts' : []
+    };
 
-    this.getPostsFromReddit()
+    this.updatePostsFromReddit()
       .then(posts => {
+        console.log('Posts received:');
         console.log(posts);
 
+        this.setState({
+          posts: posts
+        });
+
+        /*
         posts.forEach(post => {
-          const data = post.data;
           // Create/update tasty react objects here later.
+          this.state.posts
 
+          // Test render:
           // Template literals! With if statements, srsly!
-          /*
           document.body.innerHTML += `
-            ${data.title} <br>
-            ${data.author} <br>
-            /r/${data.keto} <br>
-            ${data.url} <br>
+            ${post.data.title} <br>
+            ${post.data.author} <br>
+            /r/${post.data.keto} <br>
+            ${post.data.url} <br>
 
-            ${data.selftext ?
-              `${data.selftext}` : ''
+            ${post.data.selftext ?
+              `${post.data.selftext}` : ''
             }
 
-            score: ${data.score} <br>
+            score: ${post.data.score} <br>
 
-            ${data.thumbnail.substr(0, 4) == 'http'  ?
-              `<img src="${data.thumbnail}" /> <br>`
+            ${post.data.thumbnail.substr(0, 4) == 'http'  ?
+              `<img src="${post.data.thumbnail}" /> <br>`
               :
               'ddwadwafwafwafwaf'
             }
 
             <hr>
           `;
-          */
         });
+        */
       });
   }
 
-  async getPostsFromReddit() {
+  async updatePostsFromReddit() {
     try {
       let response = await fetch('https://www.reddit.com/new.json');
       let responseJson = await response.json();
@@ -48,9 +57,14 @@ class Posts extends React.Component {
   }
 
   render() {
+    const posts = [];
+    this.state.posts.map((post, i) => {
+      posts.push(<Post key={i} post={post} />);
+    });
+
     return (
       <div>
-        Posts ..
+        {posts}
       </div>
     );
   }

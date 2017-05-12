@@ -1,7 +1,6 @@
 //
-// Compiles into /dist as vanilla Javascript (es2015)
+// Concatenates all /src files into /dist.app.js as compiles to vanilla Javascript (es2015)
 //
-
 
 class Main extends React.Component {
   constructor(props) {
@@ -14,7 +13,6 @@ class Main extends React.Component {
     );
   }
 }
-
 
 ReactDOM.render(
   <Main />,

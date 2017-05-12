@@ -16,40 +16,49 @@ var Posts = function (_React$Component) {
 
     var _this = _possibleConstructorReturn(this, (Posts.__proto__ || Object.getPrototypeOf(Posts)).call(this, props));
 
-    _this.getPostsFromReddit().then(function (posts) {
+    _this.state = {
+      'posts': []
+    };
+
+    _this.updatePostsFromReddit().then(function (posts) {
+      console.log('Posts received:');
       console.log(posts);
 
-      posts.forEach(function (post) {
-        var data = post.data;
-        // Create/update tasty react objects here later.
+      _this.setState({
+        posts: posts
+      });
 
+      /*
+      posts.forEach(post => {
+        // Create/update tasty react objects here later.
+        this.state.posts
+         // Test render:
         // Template literals! With if statements, srsly!
-        /*
         document.body.innerHTML += `
-          ${data.title} <br>
-          ${data.author} <br>
-          /r/${data.keto} <br>
-          ${data.url} <br>
-           ${data.selftext ?
-            `${data.selftext}` : ''
+          ${post.data.title} <br>
+          ${post.data.author} <br>
+          /r/${post.data.keto} <br>
+          ${post.data.url} <br>
+           ${post.data.selftext ?
+            `${post.data.selftext}` : ''
           }
-           score: ${data.score} <br>
-           ${data.thumbnail.substr(0, 4) == 'http'  ?
-            `<img src="${data.thumbnail}" /> <br>`
+           score: ${post.data.score} <br>
+           ${post.data.thumbnail.substr(0, 4) == 'http'  ?
+            `<img src="${post.data.thumbnail}" /> <br>`
             :
             'ddwadwafwafwafwaf'
           }
            <hr>
         `;
-        */
       });
+      */
     });
     return _this;
   }
 
   _createClass(Posts, [{
-    key: 'getPostsFromReddit',
-    value: async function getPostsFromReddit() {
+    key: 'updatePostsFromReddit',
+    value: async function updatePostsFromReddit() {
       try {
         var response = await fetch('https://www.reddit.com/new.json');
         var responseJson = await response.json();
@@ -61,10 +70,15 @@ var Posts = function (_React$Component) {
   }, {
     key: 'render',
     value: function render() {
+      var posts = [];
+      this.state.posts.map(function (post, i) {
+        posts.push(React.createElement(Post, { key: i, post: post }));
+      });
+
       return React.createElement(
         'div',
         null,
-        'Posts ..'
+        posts
       );
     }
   }]);
@@ -82,9 +96,8 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 //
-// Compiles into /dist as vanilla Javascript (es2015)
+// Concatenates all /src files into /dist.app.js as compiles to vanilla Javascript (es2015)
 //
-
 
 var Main = function (_React$Component) {
   _inherits(Main, _React$Component);
