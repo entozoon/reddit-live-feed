@@ -32,7 +32,7 @@ getPostsFromReddit()
         ${post.url} <br>
 
         ${post.selftext ?
-          `${post.selftext}` : ``
+          `${post.selftext}` : ''
         }
 
         score: ${post.score} <br>
@@ -40,7 +40,7 @@ getPostsFromReddit()
         ${post.thumbnail.substr(0, 4) == 'http'  ?
           `<img src="${post.thumbnail}" /> <br>`
           :
-          `ddwadwafwafwafwaf`
+          'ddwadwafwafwafwaf'
         }
 
         <hr>
