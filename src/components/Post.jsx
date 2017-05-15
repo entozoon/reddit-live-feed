@@ -32,7 +32,7 @@ class Post extends React.Component {
 
   render() {
     return (
-      <div data-delay={this.state.delay}>
+      <div className='post' data-delay={this.state.delay}>
         {this.state.data.title} <br />
         {this.state.data.author} <br />
         /r/{this.state.data.keto} <br />

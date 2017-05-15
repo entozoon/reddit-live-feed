@@ -48,7 +48,7 @@ var Post = function (_React$Component) {
     value: function render() {
       return React.createElement(
         'div',
-        { 'data-delay': this.state.delay },
+        { className: 'post', 'data-delay': this.state.delay },
         this.state.data.title,
         ' ',
         React.createElement('br', null),
