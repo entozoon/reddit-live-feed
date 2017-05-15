@@ -13,8 +13,10 @@
     display: block;
     max-width: 25%;
   }
-  > div {
+  > a + div {
     width: 75%;
+  }
+  > div {
     padding: 5px 10px;
   }
   a {

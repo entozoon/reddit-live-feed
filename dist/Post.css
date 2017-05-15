@@ -1,1 +1,1 @@
-.post{margin-bottom:10px;overflow:hidden;background:rgba(173,163,42,0.1);box-shadow:0 6px 5px -5px rgba(20,20,100,0.4)}.post>a,.post>div{display:block;float:left}.post>a{display:block;max-width:25%}.post>div{width:75%;padding:5px 10px}.post a{color:#0a6}
+.post{margin-bottom:10px;overflow:hidden;background:rgba(173,163,42,0.1);box-shadow:0 6px 5px -5px rgba(20,20,100,0.4)}.post>a,.post>div{display:block;float:left}.post>a{display:block;max-width:25%}.post>a+div{width:75%}.post>div{padding:5px 10px}.post a{color:#0a6}
