@@ -30,11 +30,9 @@ class Posts extends React.Component {
           posts = posts.splice(0, 1);
         }
 
-        posts.filter(post => {
-          if (parseInt(post.data.created) > parseInt(this.state.mostRecentTimestamp)) {
-            // This post is more recent that ones previously shown..
-            console.log(post.data.title);
-          }
+        // Filter out posts older than the most recent one previously seen
+        posts = posts.filter(post => {
+          return (parseInt(post.data.created) > parseInt(this.state.mostRecentTimestamp));
         });
 
         // Store the most recent timestamp
@@ -42,14 +40,17 @@ class Posts extends React.Component {
           mostRecentTimestamp: posts[0].data.created
         });
 
+        // Reverse posts, as we want most recent LAST
+        posts.reverse();
+
         this.setState({
-          posts: posts
+          posts: this.state.posts.concat(posts)
         });
       })
       .then(() => {
         setTimeout(() => {
           this.updatePosts();
-        }, 5000);
+        }, 10000);
       });
   }
 

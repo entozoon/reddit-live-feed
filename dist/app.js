@@ -66,7 +66,7 @@ var Post = function (_React$Component) {
         ' ',
         React.createElement('br', null),
         this.timeSinceCreation(this.state.data.created),
-        ' seconds ',
+        ' seconds ago ',
         React.createElement('br', null),
         'score: ',
         this.state.data.score,
@@ -132,11 +132,9 @@ var Posts = function (_React$Component) {
           posts = posts.splice(0, 1);
         }
 
-        posts.filter(function (post) {
-          if (parseInt(post.data.created) > parseInt(_this2.state.mostRecentTimestamp)) {
-            // This post is more recent that ones previously shown..
-            console.log(post.data.title);
-          }
+        // Filter out posts older than the most recent one previously seen
+        posts = posts.filter(function (post) {
+          return parseInt(post.data.created) > parseInt(_this2.state.mostRecentTimestamp);
         });
 
         // Store the most recent timestamp
@@ -144,13 +142,16 @@ var Posts = function (_React$Component) {
           mostRecentTimestamp: posts[0].data.created
         });
 
+        // Reverse posts, as we want most recent LAST
+        posts.reverse();
+
         _this2.setState({
-          posts: posts
+          posts: _this2.state.posts.concat(posts)
         });
       }).then(function () {
         setTimeout(function () {
           _this2.updatePosts();
-        }, 5000);
+        }, 10000);
       });
     }
   }, {

@@ -38,7 +38,7 @@ class Post extends React.Component {
         /r/{this.state.data.keto} <br />
         {this.state.data.url} <br />
         {this.state.data.selftext} <br />
-        {this.timeSinceCreation(this.state.data.created)} seconds <br />
+        {this.timeSinceCreation(this.state.data.created)} seconds ago <br />
         score: {this.state.data.score} <br />
 
         {this.state.data.thumbnail.substr(0, 4) == 'http' ?
