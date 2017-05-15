@@ -1,4 +1,23 @@
 .post {
-  padding: 20px 0;
-  border: 1px solid;
+  margin-bottom: 10px;
+  overflow: hidden;
+  background: rgba(173, 163, 42, 0.1);
+  box-shadow: 0 6px 5px -5px rgba(20,20,100,0.4);
+  // Why use classes when I can make life difficult for myself? mad efficient though
+  > a, // img
+  > div {
+    display: block;
+    float: left;
+  }
+  > a {
+    display: block;
+    max-width: 25%;
+  }
+  > div {
+    width: 75%;
+    padding: 5px 10px;
+  }
+  a {
+    color: #0a6;
+  }
 }

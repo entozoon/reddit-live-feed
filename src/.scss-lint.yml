@@ -1,0 +1,51 @@
+# SCSS Linter configuration and overrides
+# (some of the rules are rules are too.. evangelical)
+#
+linters:
+  # Allow /* */ style comments because they're legit
+  Comment:
+    enabled: false
+
+  # Spaces - 2
+  Indentation:
+    enabled: true
+    character: space
+    width: 2
+
+  # Allow empty lines between { } for brevity
+  EmptyLineBetweenBlocks:
+    enabled: false
+
+  # Increase nesting depth as necessary for navs
+  NestingDepth:
+    enabled: true
+    max_depth: 5
+
+  # Same for selector otherwise we could never do a typical .foo a { #{$attention} { .fa {
+  SelectorDepth:
+    enabled: true
+    max_depth: 5
+
+  # Allow space after property: for alignment
+  SpaceAfterPropertyColon:
+    enabled: false
+
+  # Allow color keywords and literals because they're legit
+  ColorKeyword:
+    enabled: false
+  ColorVariable:
+    enabled: false
+
+  # Allow !important as we use it to override javascript responsively
+  ImportantRule:
+    enabled: false
+
+  # Property sort order - recess (twitter / bootstrap style)
+  PropertySortOrder:
+    order: recess
+
+  # Stricter warnings against @extend because they're bad news
+  PlaceholderInExtend:
+    enabled: false
+  ExtendDirective:
+    enabled: true

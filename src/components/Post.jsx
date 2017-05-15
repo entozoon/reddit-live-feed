@@ -33,18 +33,27 @@ class Post extends React.Component {
   render() {
     return (
       <div className='post' data-delay={this.state.delay}>
-        {this.state.data.title} <br />
-        {this.state.data.author} <br />
-        /r/{this.state.data.keto} <br />
-        {this.state.data.url} <br />
-        {this.state.data.selftext} <br />
-        {this.timeSinceCreation(this.state.data.created)} seconds ago <br />
-        score: {this.state.data.score} <br />
-
         {this.state.data.thumbnail.substr(0, 4) == 'http' ?
-          `<img src="${this.state.data.thumbnail}" />` : ''
+          <a href={this.state.data.url} target='_blank'>
+            <img src={this.state.data.thumbnail} />
+          </a> : ''
         }
-        <hr />
+
+        <div>
+          <div>
+            <a href={this.state.data.url} target='_blank'>{this.state.data.title}</a>
+          </div>
+
+          <div>
+            /r/{this.state.data.subreddit} :: @{this.state.data.author}
+          </div>
+
+          <div>
+            {this.timeSinceCreation(this.state.data.created)} seconds ago <br />
+          </div>
+
+          {this.state.data.selftext}
+        </div>
       </div>
     );
   }

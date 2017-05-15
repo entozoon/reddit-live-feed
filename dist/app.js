@@ -49,31 +49,40 @@ var Post = function (_React$Component) {
       return React.createElement(
         'div',
         { className: 'post', 'data-delay': this.state.delay },
-        this.state.data.title,
-        ' ',
-        React.createElement('br', null),
-        this.state.data.author,
-        ' ',
-        React.createElement('br', null),
-        '/r/',
-        this.state.data.keto,
-        ' ',
-        React.createElement('br', null),
-        this.state.data.url,
-        ' ',
-        React.createElement('br', null),
-        this.state.data.selftext,
-        ' ',
-        React.createElement('br', null),
-        this.timeSinceCreation(this.state.data.created),
-        ' seconds ago ',
-        React.createElement('br', null),
-        'score: ',
-        this.state.data.score,
-        ' ',
-        React.createElement('br', null),
-        this.state.data.thumbnail.substr(0, 4) == 'http' ? '<img src="' + this.state.data.thumbnail + '" />' : '',
-        React.createElement('hr', null)
+        this.state.data.thumbnail.substr(0, 4) == 'http' ? React.createElement(
+          'a',
+          { href: this.state.data.url, target: '_blank' },
+          React.createElement('img', { src: this.state.data.thumbnail })
+        ) : '',
+        React.createElement(
+          'div',
+          null,
+          React.createElement(
+            'div',
+            null,
+            React.createElement(
+              'a',
+              { href: this.state.data.url, target: '_blank' },
+              this.state.data.title
+            )
+          ),
+          React.createElement(
+            'div',
+            null,
+            '/r/',
+            this.state.data.subreddit,
+            ' :: @',
+            this.state.data.author
+          ),
+          React.createElement(
+            'div',
+            null,
+            this.timeSinceCreation(this.state.data.created),
+            ' seconds ago ',
+            React.createElement('br', null)
+          ),
+          this.state.data.selftext
+        )
       );
     }
   }]);
