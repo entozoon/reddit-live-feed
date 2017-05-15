@@ -28,6 +28,7 @@
     "browser-sync": "^2.18.8",
     "eslint": "^3.19.0",
     "eslint-plugin-react": "^7.0.0",
-    "opn-cli": "^3.1.0"
+    "opn-cli": "^3.1.0",
+    "sass": "^0.5.0"
   }
 }

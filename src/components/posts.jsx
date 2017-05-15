@@ -1,6 +1,9 @@
 class Posts extends React.Component {
   constructor(props) {
     super(props);
+
+    this.updateDelay = 15000;
+
     this.state = {
       posts : [],
       mostRecentTimestamp: 0
@@ -17,6 +20,18 @@ class Posts extends React.Component {
     } catch(error) {
       console.error(error);
     }
+  }
+
+  addDelaysToPosts(posts, updateDelay) {
+    let delayIncrement = updateDelay / posts.length;
+    // Round to nearest .1s (e.g. 300ms)
+    delayIncrement = Math.round(delayIncrement / 100) * 100;
+    return posts.map((post, i) => {
+      if (posts.length > 1) {
+        post.delay = delayIncrement * i;
+      }
+      return post;
+    });
   }
 
   updatePosts(firstRun) {
@@ -43,14 +58,17 @@ class Posts extends React.Component {
         // Reverse posts, as we want most recent LAST
         posts.reverse();
 
+        posts = this.addDelaysToPosts(posts, this.updateDelay);
+
         this.setState({
           posts: this.state.posts.concat(posts)
         });
       })
+
       .then(() => {
         setTimeout(() => {
           this.updatePosts();
-        }, 10000);
+        }, this.updateDelay);
       });
   }
 

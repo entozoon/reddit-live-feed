@@ -48,7 +48,7 @@ var Post = function (_React$Component) {
     value: function render() {
       return React.createElement(
         'div',
-        null,
+        { 'data-delay': this.state.delay },
         this.state.data.title,
         ' ',
         React.createElement('br', null),
@@ -98,6 +98,8 @@ var Posts = function (_React$Component) {
 
     var _this = _possibleConstructorReturn(this, (Posts.__proto__ || Object.getPrototypeOf(Posts)).call(this, props));
 
+    _this.updateDelay = 15000;
+
     _this.state = {
       posts: [],
       mostRecentTimestamp: 0
@@ -117,6 +119,19 @@ var Posts = function (_React$Component) {
       } catch (error) {
         console.error(error);
       }
+    }
+  }, {
+    key: 'addDelaysToPosts',
+    value: function addDelaysToPosts(posts, updateDelay) {
+      var delayIncrement = updateDelay / posts.length;
+      // Round to nearest .1s (e.g. 300ms)
+      delayIncrement = Math.round(delayIncrement / 100) * 100;
+      return posts.map(function (post, i) {
+        if (posts.length > 1) {
+          post.delay = delayIncrement * i;
+        }
+        return post;
+      });
     }
   }, {
     key: 'updatePosts',
@@ -145,13 +160,15 @@ var Posts = function (_React$Component) {
         // Reverse posts, as we want most recent LAST
         posts.reverse();
 
+        posts = _this2.addDelaysToPosts(posts, _this2.updateDelay);
+
         _this2.setState({
           posts: _this2.state.posts.concat(posts)
         });
       }).then(function () {
         setTimeout(function () {
           _this2.updatePosts();
-        }, 10000);
+        }, _this2.updateDelay);
       });
     }
   }, {
