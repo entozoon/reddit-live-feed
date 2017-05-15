@@ -20,11 +20,32 @@ var Post = function (_React$Component) {
     return _this;
   }
 
+  /**
+   * now
+   * @return {Date} Current timestamp in JST (which reddit appears to use)
+   */
+
+
   _createClass(Post, [{
+    key: 'now',
+    value: function now() {
+      var now = new Date();
+      var timestampNow = Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate(), now.getUTCHours() + 8, // JST
+      now.getUTCMinutes(), now.getUTCSeconds(), now.getUTCMilliseconds());
+      timestampNow = new Date(timestampNow);
+      return timestampNow;
+    }
+  }, {
+    key: 'timeSinceCreation',
+    value: function timeSinceCreation(created) {
+      var timestampCreated = new Date(created * 1000);
+      var timeSinceCreation = this.now() - timestampCreated; // milliseconds
+      timeSinceCreation = Math.round(timeSinceCreation / 1000); // seconds, rounded
+      return timeSinceCreation;
+    }
+  }, {
     key: 'render',
     value: function render() {
-      console.log(this.state.data);
-      var timestamp = new Date(Number(this.state.data.created) * 1000);
       return React.createElement(
         'div',
         null,
@@ -44,8 +65,8 @@ var Post = function (_React$Component) {
         this.state.data.selftext,
         ' ',
         React.createElement('br', null),
-        timeFormat(timestamp),
-        ' ',
+        this.timeSinceCreation(this.state.data.created),
+        ' seconds ',
         React.createElement('br', null),
         'score: ',
         this.state.data.score,
@@ -82,8 +103,11 @@ var Posts = function (_React$Component) {
     };
 
     _this.updatePostsFromReddit().then(function (posts) {
-      console.log('Posts received:');
+      console.log('Posts received (most recent first):');
       console.log(posts);
+
+      // Chuck all but the most recent paste, we'll accumulate them up later
+      posts = posts.splice(0, 1);
 
       _this.setState({
         posts: posts

@@ -7,8 +7,11 @@ class Posts extends React.Component {
 
     this.updatePostsFromReddit()
       .then(posts => {
-        console.log('Posts received:');
+        console.log('Posts received (most recent first):');
         console.log(posts);
+
+        // Chuck all but the most recent paste, we'll accumulate them up later
+        posts = posts.splice(0, 1);
 
         this.setState({
           posts: posts
