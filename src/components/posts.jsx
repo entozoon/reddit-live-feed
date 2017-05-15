@@ -2,54 +2,14 @@ class Posts extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      'posts' : []
+      posts : [],
+      mostRecentTimestamp: 0
     };
 
-    this.updatePostsFromReddit()
-      .then(posts => {
-        console.log('Posts received (most recent first):');
-        console.log(posts);
-
-        // Chuck all but the most recent paste, we'll accumulate them up later
-        posts = posts.splice(0, 1);
-
-        this.setState({
-          posts: posts
-        });
-
-        /*
-        posts.forEach(post => {
-          // Create/update tasty react objects here later.
-          this.state.posts
-
-          // Test render:
-          // Template literals! With if statements, srsly!
-          document.body.innerHTML += `
-            ${post.data.title} <br>
-            ${post.data.author} <br>
-            /r/${post.data.keto} <br>
-            ${post.data.url} <br>
-
-            ${post.data.selftext ?
-              `${post.data.selftext}` : ''
-            }
-
-            score: ${post.data.score} <br>
-
-            ${post.data.thumbnail.substr(0, 4) == 'http'  ?
-              `<img src="${post.data.thumbnail}" /> <br>`
-              :
-              'ddwadwafwafwafwaf'
-            }
-
-            <hr>
-          `;
-        });
-        */
-      });
+    this.updatePosts(true);
   }
 
-  async updatePostsFromReddit() {
+  async downloadPosts() {
     try {
       let response = await fetch('https://www.reddit.com/new.json');
       let responseJson = await response.json();
@@ -57,6 +17,40 @@ class Posts extends React.Component {
     } catch(error) {
       console.error(error);
     }
+  }
+
+  updatePosts(firstRun) {
+    this.downloadPosts()
+      .then(posts => {
+        //console.log('Posts received (most recent first)');
+        //console.log(posts);
+
+        // Chuck all but the most recent post if that's what we want, will accumulate later
+        if (typeof firstRun != 'undefined') {
+          posts = posts.splice(0, 1);
+        }
+
+        posts.filter(post => {
+          if (parseInt(post.data.created) > parseInt(this.state.mostRecentTimestamp)) {
+            // This post is more recent that ones previously shown..
+            console.log(post.data.title);
+          }
+        });
+
+        // Store the most recent timestamp
+        this.setState({
+          mostRecentTimestamp: posts[0].data.created
+        });
+
+        this.setState({
+          posts: posts
+        });
+      })
+      .then(() => {
+        setTimeout(() => {
+          this.updatePosts();
+        }, 5000);
+      });
   }
 
   render() {

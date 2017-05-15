@@ -99,51 +99,17 @@ var Posts = function (_React$Component) {
     var _this = _possibleConstructorReturn(this, (Posts.__proto__ || Object.getPrototypeOf(Posts)).call(this, props));
 
     _this.state = {
-      'posts': []
+      posts: [],
+      mostRecentTimestamp: 0
     };
 
-    _this.updatePostsFromReddit().then(function (posts) {
-      console.log('Posts received (most recent first):');
-      console.log(posts);
-
-      // Chuck all but the most recent paste, we'll accumulate them up later
-      posts = posts.splice(0, 1);
-
-      _this.setState({
-        posts: posts
-      });
-
-      /*
-      posts.forEach(post => {
-        // Create/update tasty react objects here later.
-        this.state.posts
-         // Test render:
-        // Template literals! With if statements, srsly!
-        document.body.innerHTML += `
-          ${post.data.title} <br>
-          ${post.data.author} <br>
-          /r/${post.data.keto} <br>
-          ${post.data.url} <br>
-           ${post.data.selftext ?
-            `${post.data.selftext}` : ''
-          }
-           score: ${post.data.score} <br>
-           ${post.data.thumbnail.substr(0, 4) == 'http'  ?
-            `<img src="${post.data.thumbnail}" /> <br>`
-            :
-            'ddwadwafwafwafwaf'
-          }
-           <hr>
-        `;
-      });
-      */
-    });
+    _this.updatePosts(true);
     return _this;
   }
 
   _createClass(Posts, [{
-    key: 'updatePostsFromReddit',
-    value: async function updatePostsFromReddit() {
+    key: 'downloadPosts',
+    value: async function downloadPosts() {
       try {
         var response = await fetch('https://www.reddit.com/new.json');
         var responseJson = await response.json();
@@ -151,6 +117,41 @@ var Posts = function (_React$Component) {
       } catch (error) {
         console.error(error);
       }
+    }
+  }, {
+    key: 'updatePosts',
+    value: function updatePosts(firstRun) {
+      var _this2 = this;
+
+      this.downloadPosts().then(function (posts) {
+        //console.log('Posts received (most recent first)');
+        //console.log(posts);
+
+        // Chuck all but the most recent post if that's what we want, will accumulate later
+        if (typeof firstRun != 'undefined') {
+          posts = posts.splice(0, 1);
+        }
+
+        posts.filter(function (post) {
+          if (parseInt(post.data.created) > parseInt(_this2.state.mostRecentTimestamp)) {
+            // This post is more recent that ones previously shown..
+            console.log(post.data.title);
+          }
+        });
+
+        // Store the most recent timestamp
+        _this2.setState({
+          mostRecentTimestamp: posts[0].data.created
+        });
+
+        _this2.setState({
+          posts: posts
+        });
+      }).then(function () {
+        setTimeout(function () {
+          _this2.updatePosts();
+        }, 5000);
+      });
     }
   }, {
     key: 'render',
