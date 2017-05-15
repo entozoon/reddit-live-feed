@@ -1,5 +1,7 @@
 # Reddit Live Feed
 
+## [View Now!](https://entozoon.github.io/reddit-live-feed/)
+
 Reddit posts, live, as they happen, right now, in your face!
 
 ![reddit live feed](http://i.imgur.com/METsNQP.gif "reddit live feed")
