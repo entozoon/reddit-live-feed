@@ -2,7 +2,7 @@ class Posts extends React.Component {
   constructor(props) {
     super(props);
 
-    this.updateDelay = 15000;
+    this.updateDelay = 2500;
 
     this.state = {
       posts : [],
@@ -49,6 +49,9 @@ class Posts extends React.Component {
         posts = posts.filter(post => {
           return (parseInt(post.data.created) > parseInt(this.state.mostRecentTimestamp));
         });
+
+        // Must refresh fast enough for this to be less than 25 or it'll miss some
+        //console.log('New posts: ' + posts.length);
 
         // Store the most recent timestamp
         this.setState({

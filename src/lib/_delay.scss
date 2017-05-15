@@ -1,0 +1,28 @@
+[data-delay] {
+  opacity: 0;
+}
+// 0, 100, 200 .. 5000
+@for $i from 0 to 50 {
+  $delay: $i * 100;
+  [data-delay='#{$delay}'] {
+    //max-height: 500px;
+    animation: appear 250ms;
+    animation-delay: #{$delay}ms;
+    animation-fill-mode: forwards;
+    animation-iteration-count: 1;
+    transition: all 250ms ease-out;
+  }
+}
+
+
+@keyframes appear {
+  0% {
+    //max-height: 0;
+    opacity: 0;
+  }
+
+  100% {
+    //max-height: 500px;
+    opacity: 1;
+  }
+}

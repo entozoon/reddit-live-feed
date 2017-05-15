@@ -98,7 +98,7 @@ var Posts = function (_React$Component) {
 
     var _this = _possibleConstructorReturn(this, (Posts.__proto__ || Object.getPrototypeOf(Posts)).call(this, props));
 
-    _this.updateDelay = 15000;
+    _this.updateDelay = 2500;
 
     _this.state = {
       posts: [],
@@ -151,6 +151,9 @@ var Posts = function (_React$Component) {
         posts = posts.filter(function (post) {
           return parseInt(post.data.created) > parseInt(_this2.state.mostRecentTimestamp);
         });
+
+        // Must refresh fast enough for this to be less than 25 or it'll miss some
+        //console.log('New posts: ' + posts.length);
 
         // Store the most recent timestamp
         _this2.setState({
